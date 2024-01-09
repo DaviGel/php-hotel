@@ -58,7 +58,7 @@
           <label class="form-check-label" for="flexCheckDefault">
             Parking
           </label>
-          <button type="submit" class="btn btn-primary btn-sm">Small button</button>
+          <button type="submit" class="btn btn-primary btn-sm">Search</button>
         </div>
       </form>
       <table class="table">
@@ -80,7 +80,11 @@
               foreach($hotel as $key => $informations) {
                 if($parking == true) {
                   if($hotel['parking'] == true) {
-                    echo "<td>$informations</td>";
+                    if($key === 'parking') {
+                      echo "<td>Yes</td>";
+                    } else {
+                      echo "<td>$informations</td>";
+                    }
                   }
                 } else {
                   if($key === 'parking') {
@@ -98,17 +102,3 @@
     </div>
   </body>
 </html>
-
-<!-- 
-  foreach($hotels as $hotel) {
-    echo '<tr>';
-    foreach($hotel as $key => $informations) {
-      if($key === 'parking') {
-        echo ($informations ? "<td>Yes</td>" : "<td>No</td>");
-      } else {
-        echo "<td>$informations</td>";
-      }
-    }
-    echo '</tr>';
-  }
--->
