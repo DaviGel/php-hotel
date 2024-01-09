@@ -53,12 +53,20 @@
     <div class="container mt-5">
       <h1>Hotel</h1>
       <form action="" method="GET" class="my-4">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="parking">
+        <div class="form-check ps-0">
+          <input class="form-check-input m-1" type="checkbox" value="true" id="flexCheckDefault" name="parking">
           <label class="form-check-label" for="flexCheckDefault">
-            Parking
+            Parcheggio
           </label>
-          <button type="submit" class="btn btn-primary btn-sm">Search</button>
+          <select class="form-select form-select-sm shadow-none my-3" aria-label="Small select example" name="vote">
+            <option selected value="0">Valutazione</option>
+            <option value="1">Uno</option>
+            <option value="2">Due</option>
+            <option value="3">Tre</option>
+            <option value="4">Quattro</option>
+            <option value="5">Cinque</option>
+          </select>
+          <button type="submit" class="btn btn-primary btn-sm">Cerca</button>
         </div>
       </form>
       <table class="table">
@@ -74,23 +82,28 @@
         <tbody>
           <?php
             $parking = $_GET['parking'] ?? false;
+            $vote = $_GET['vote'];
 
             foreach($hotels as $hotel) {
               echo '<tr>';
               foreach($hotel as $key => $informations) {
                 if($parking == true) {
-                  if($hotel['parking'] == true) {
-                    if($key === 'parking') {
-                      echo "<td>Yes</td>";
-                    } else {
-                      echo "<td>$informations</td>";
+                  if($hotel['vote'] >= $vote) {
+                    if($hotel['parking'] == true) {
+                      if($key === 'parking') {
+                        echo "<td>Yes</td>";
+                      } else {
+                        echo "<td>$informations</td>";
+                      }
                     }
                   }
                 } else {
-                  if($key === 'parking') {
-                    echo ($informations ? "<td>Yes</td>" : "<td>No</td>");
-                  } else {
-                    echo "<td>$informations</td>";
+                  if($hotel['vote'] >= $vote) {
+                    if($key === 'parking') {
+                      echo ($informations ? "<td>Yes</td>" : "<td>No</td>");
+                    } else {
+                      echo "<td>$informations</td>";
+                    }
                   }
                 }
               }
